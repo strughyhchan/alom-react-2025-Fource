@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+export const LineIcon = styled.img`
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 8px;
+`;
+
 export const StationBoxContainer = styled.div`
   background: #f0f8ff;
   border: 2px solid #4682b4;

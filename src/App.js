@@ -7,6 +7,7 @@ function App() {
   const [station, setStation] = useState("어린이대공원");
   const [arrivals, setArrivals] = useState([]);
   const [error, setError] = useState(null);
+  const [gunjaLine, setGunjaLine] = useState("5");
 
   useEffect(() => {
     const fetchArrivalData = async () => {
@@ -43,8 +44,8 @@ function App() {
             path="/"
             element={
               <>
-                <StationBox station="어린이대공원(세종대)" />
-                <StationBox station="군자(능동)" />
+                <StationBox station="어린이대공원(세종대)" lines={["7"]} />
+                <StationBox station="군자(능동)" lines={["5", "7"]} />
               </>
             }
           />
