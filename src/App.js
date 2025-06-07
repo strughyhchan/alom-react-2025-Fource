@@ -1,7 +1,11 @@
+
 import React, { useEffect, useState } from "react";
 import StationBox from "./components/StationBox";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+
+
+ 
 
 function App() {
   const [station, setStation] = useState("어린이대공원");
@@ -36,6 +40,7 @@ function App() {
   }, [station]);
 
   return (
+
     <Router>
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", padding: "20px" }}>
         <Routes>
@@ -56,6 +61,8 @@ function App() {
         </Routes>
       </div>
     </Router>
+
+    
   );
 }
 
