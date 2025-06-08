@@ -2,10 +2,7 @@
 import React, { useEffect, useState } from "react";
 import StationBox from "./components/StationBox";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-
-
- 
+import GunjaStation from "./components/GunjaStation";
 
 function App() {
   const [station, setStation] = useState("어린이대공원");
@@ -55,9 +52,9 @@ function App() {
             }
           />
 
-          {/* (선택) 상세 페이지 라우팅 
-        <Route path="/station/:name" element={<StationDetail />} /> 
-        */}
+          
+        <Route path="/station/gunja" element={<GunjaStation />} />
+
         </Routes>
       </div>
     </Router>

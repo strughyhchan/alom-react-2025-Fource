@@ -36,9 +36,14 @@ function StationBox({ station, lines }) {
 
         fetchArrivalData();
     }, [station]);
-
+    
     const handleClick = () => {
-        navigate(`/station/${encodeURIComponent(station)}`);
+    // 클릭 시 상세 페이지 이동 처리
+    if (station.includes("군자")) {
+      navigate("/station/gunja");  // 오타 수정: avigate -> navigate
+    } else if (station.includes("어린이대공원")) {
+        alert("어린이대공원 상세 페이지 준비 중입니다.");
+    }
     };
 
     // 방향 구분 유틸
