@@ -11,16 +11,17 @@ function StationBox({ station, lines }) {
     const [arrivals, setArrivals] = useState([]);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const API_KEY = "7769455a5163686938395669547458"; // API 키
 
     useEffect(() => {
         const fetchArrivalData = async () => {
             try {
                 const response = await fetch(
-                    `http://localhost:5000/api/station?stSrch=${station}`
+                    `http://swopenapi.seoul.go.kr/api/subway/${API_KEY}/json/realtimeStationArrival/1/5/${encodeURIComponent(station)}`
                 );
                 const data = await response.json();
 
-                const rows = data.realtimeStationArrival?.row;
+                const rows = data.realtimeArrivalList;
                 if (Array.isArray(rows)) {
                     setArrivals(rows);
                 } else if (rows) {
@@ -35,33 +36,31 @@ function StationBox({ station, lines }) {
         };
 
         fetchArrivalData();
+        const interval = setInterval(fetchArrivalData, 30000); // 30초마다 갱신
+        return () => clearInterval(interval);
     }, [station]);
     
     const handleClick = () => {
-    // 클릭 시 상세 페이지 이동 처리
-    if (station.includes("군자")) {
-      navigate("/station/gunja");  // 오타 수정: avigate -> navigate
-    } else if (station.includes("어린이대공원")) {
-        alert("어린이대공원 상세 페이지 준비 중입니다.");
-    }
+        if (station.includes("군자")) {
+            navigate("/station/gunja");
+        } else if (station.includes("어린이대공원")) {
+            navigate("/station/childrensgp");
+        }
     };
 
-    // 방향 구분 유틸
-    const isUp = (txt) =>
-        txt === "상행" || txt === "내선" || txt === "0";
-    const isDown = (txt) =>
-        txt === "하행" || txt === "외선" || txt === "1";
+    const isUp = (txt) => txt === "상행" || txt === "내선" || txt === "0";
+    const isDown = (txt) => txt === "하행" || txt === "외선" || txt === "1";
 
     const renderLineBox = (line) => {
-        const subwayCode = `100${String(line)}`;
+        const subwayCode = `100${line}`;
         const icon = `/images/line_${line}.png`;
 
         const filtered = arrivals.filter(
-            (item) => item.subwayId?._text === subwayCode
+            (item) => item.subwayId === subwayCode
         );
 
-        const up = filtered.find((item) => isUp(item.updnLine?._text));
-        const down = filtered.find((item) => isDown(item.updnLine?._text));
+        const up = filtered.find((item) => isUp(item.updnLine));
+        const down = filtered.find((item) => isDown(item.updnLine));
 
         return (
             <div key={line} style={{ marginTop: "12px" }}>
@@ -76,14 +75,14 @@ function StationBox({ station, lines }) {
                         {up && (
                             <ArrivalBox>
                                 <ArrivalText>
-                                    ⬆️ {up.trainLineNm?._text} - {up.arvlMsg2?._text}
+                                    ⬆️ {up.trainLineNm} - {up.arvlMsg2}
                                 </ArrivalText>
                             </ArrivalBox>
                         )}
                         {down && (
                             <ArrivalBox>
                                 <ArrivalText>
-                                    ⬇️ {down.trainLineNm?._text} - {down.arvlMsg2?._text}
+                                    ⬇️ {down.trainLineNm} - {down.arvlMsg2}
                                 </ArrivalText>
                             </ArrivalBox>
                         )}

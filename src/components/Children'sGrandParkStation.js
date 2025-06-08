@@ -6,9 +6,9 @@ import {
     ArrivalText,
 } from "./styles/StyledComponents";
 
-function GunjaStation() {
-    const station = "군자(능동)";
-    const lines = ["5", "7"];
+function ChildrensGrandParkStation() {
+    const station = "어린이대공원(세종대)";
+    const lines = ["7"];
     const [arrivals, setArrivals] = useState([]);
     const [error, setError] = useState(null);
     const API_KEY = "7769455a5163686938395669547458"; // API 키
@@ -96,4 +96,4 @@ function GunjaStation() {
     );
 }
 
-export default GunjaStation;
+export default ChildrensGrandParkStation;

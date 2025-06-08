@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import StationBox from "./components/StationBox";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import GunjaStation from "./components/GunjaStation";
+import ChildrensGrandParkStation from "./components/Children'sGrandParkStation";
 
 function App() {
   const [station, setStation] = useState("어린이대공원");
@@ -54,6 +55,7 @@ function App() {
 
           
         <Route path="/station/gunja" element={<GunjaStation />} />
+        <Route path="/station/childrensgp" element={<ChildrensGrandParkStation />} />
 
         </Routes>
       </div>
