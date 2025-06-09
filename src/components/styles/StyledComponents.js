@@ -121,3 +121,61 @@ export const ArrivalText = styled.p`
     cursor: pointer;
   }
 `;
+
+
+export const RouteMapLink = styled.div`
+  background: rgb(247, 251, 255);
+  border: 2px solid #4682b4;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 16px auto;
+  width: 360px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+  color: #4682b4;
+  font-size: 18px;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.02);
+    background: #f0f8ff;
+  }
+`;
+
+export const MapWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;           // 가로 중앙 정렬
+  justify-content: flex-start;   // 세로 상단 정렬
+  padding: 32px 16px;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  box-sizing: border-box;
+`;
+
+export const MapImage = styled.img`
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 24px;
+`;
+
+export const BackButton = styled.button`
+  padding: 12px 20px;
+  background-color: white;
+  border: 2px solid #4682b4;
+  color: #4682b4;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #f0f8ff;
+  }
+`;
