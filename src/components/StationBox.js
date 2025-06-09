@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { MetroIcon } from "./styles/StyledComponents";
 import {
     LineIcon,
     StationBoxContainer,
@@ -7,13 +8,15 @@ import {
     ArrivalText,
 } from "./styles/StyledComponents";
 
-function StationBox({ station, lines }) {
+function StationBox({ station, lines, activeStation, setActiveStation }) {
     const [arrivals, setArrivals] = useState([]);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const API_KEY = "7769455a5163686938395669547458"; // API 키
+    const isOpen = activeStation === station;
 
     useEffect(() => {
+
         const fetchArrivalData = async () => {
             try {
                 const response = await fetch(
@@ -39,13 +42,15 @@ function StationBox({ station, lines }) {
         const interval = setInterval(fetchArrivalData, 30000); // 30초마다 갱신
         return () => clearInterval(interval);
     }, [station]);
-    
+
     const handleClick = () => {
-        if (station.includes("군자")) {
-            navigate("/station/gunja");
-        } else if (station.includes("어린이대공원")) {
-            navigate("/station/childrensgp");
-        }
+        /* if (station.includes("군자")) {
+             navigate("/station/gunja");
+         } else if (station.includes("어린이대공원")) {
+             navigate("/station/childrensgp");
+         }*/
+        setActiveStation(isOpen ? null : station);
+
     };
 
     const isUp = (txt) => txt === "상행" || txt === "내선" || txt === "0";
@@ -93,12 +98,17 @@ function StationBox({ station, lines }) {
     };
 
     return (
-        <StationBoxContainer onClick={handleClick}>
-            <h2>{station}역</h2>
+        <StationBoxContainer onClick={handleClick} $isOpen={isOpen}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+                <MetroIcon src="/images/Metro.png" alt="지하철 아이콘" $isOpen={isOpen} />
+                <h2>{station}역</h2>
+            </div>
             {error && <ArrivalText>{error}</ArrivalText>}
             {lines.map((line) => renderLineBox(line))}
         </StationBoxContainer>
     );
+
+
 }
 
 export default StationBox;

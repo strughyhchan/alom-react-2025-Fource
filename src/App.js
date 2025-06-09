@@ -4,13 +4,14 @@ import StationBox from "./components/StationBox";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import GunjaStation from "./components/GunjaStation";
 import ChildrensGrandParkStation from "./components/Children'sGrandParkStation";
+import { TitleBox, AppContainer } from "./components/styles/StyledComponents";
 
 function App() {
   const [station, setStation] = useState("어린이대공원");
   const [arrivals, setArrivals] = useState([]);
   const [error, setError] = useState(null);
   const [gunjaLine, setGunjaLine] = useState("5");
-
+  const [activeStation, setActiveStation] = useState(null); //아코디언 구조
   useEffect(() => {
     const fetchArrivalData = async () => {
       try {
@@ -40,28 +41,27 @@ function App() {
   return (
 
     <Router>
-      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", padding: "20px" }}>
-        <Routes>
-          {/* 메인 페이지 – 박스 2개 렌더링 */}
-          <Route
-            path="/"
-            element={
-              <>
-                <StationBox station="어린이대공원(세종대)" lines={["7"]} />
-                <StationBox station="군자(능동)" lines={["5", "7"]} />
-              </>
-            }
-          />
+      <AppContainer>
+        <TitleBox>
+          <img src="/images/sejong-logo.png" alt="세종대 로고" />
+          <h1>세종 지하철</h1>
+        </TitleBox>
 
-          
-        <Route path="/station/gunja" element={<GunjaStation />} />
-        <Route path="/station/childrensgp" element={<ChildrensGrandParkStation />} />
+        <StationBox
+          station="어린이대공원(세종대)"
+          lines={["7"]}
+          activeStation={activeStation}
+          setActiveStation={setActiveStation}
+        />
+        <StationBox
+          station="군자(능동)"
+          lines={["5", "7"]}
+          activeStation={activeStation}
+          setActiveStation={setActiveStation}
+        />
+      </AppContainer>
 
-        </Routes>
-      </div>
     </Router>
-
-    
   );
 }
 
