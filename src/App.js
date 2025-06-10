@@ -17,7 +17,6 @@ import {
   RouteMapLink,
 } from "./components/styles/StyledComponents";
 
-// 👉 내부에서 useNavigate를 쓰기 위해 컴포넌트를 한 단계 나눔
 function HomePage({ activeStation, setActiveStation }) {
   const navigate = useNavigate();
 
